@@ -1,10 +1,12 @@
-import './App.css';
-import Todo from './Todo/Todo';
+import "./App.css";
+import TodoTaskList from "./TodoTaskList/TodoTaskList";
+import TodoTaskSubmission from "./TodoTaskSubmission/TodoTaskSubmission";
 
 function App() {
   return (
-    <div >
-      <Todo />
+    <div>
+      <TodoTaskSubmission />
+      <TodoTaskList />
     </div>
   );
 }
