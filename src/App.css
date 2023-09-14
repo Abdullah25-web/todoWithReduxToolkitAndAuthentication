@@ -2,6 +2,221 @@
   text-align: center;
 }
 
+.main {
+  text-align: center;
+  justify-content: center;
+}
+
+.task-name {
+  flex-grow: 1;
+  margin-right: 20px;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.input{
+  width: 25%;
+  border-radius:20px;
+  height: 40px;
+  background: #F3F8FF;
+  padding-left: 2%;
+  margin: 2%;
+  margin-left: 2%;
+  border-width: 0;
+}
+
+/* Add a CSS class for the button */
+.rounded-button {
+  border-radius: 10px;
+  background-color: #4169E1;
+  color: white;
+  padding: 10px 20px;
+  border-width: 0;
+  /* Add any additional styles as needed */
+}
+
+.list{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  
+}
+
+.items{
+  margin-right: 3%;
+}
+
+.add{
+  font-size: large;
+}
+
+.addbtn{
+  color: white;
+  border-radius: 5%;
+  height: 50%;
+  width: 4%;
+  background-color: #007FFF;
+  border-width: 0;
+  size: 50%;
+  padding-right: 3%;
+  padding-left: 1%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.deletebtn{
+  color: white;
+    border-radius: 5px;
+    height: 55%;
+    width: 10%;
+    background-color: #ff0022;
+    border-width: 0;
+    size: 50%;
+    margin-right: 2%;
+    padding-right: 1%;
+    padding-left: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    flex-basis: 50%;
+}
+
+.savebtn{
+  height: 10%;
+  width: 10%;
+  background-color: #00db25;
+  border-radius: 5px;
+  color: white;
+  border-width: 0px;
+}
+
+.cancelbtn {
+  height: 10%;
+  width: 10%;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  border-width: 0px;
+  margin: 10px;
+}
+
+.modalcontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.editbtn {
+  color: white;
+  border-radius: 5px;
+  height: 55%;
+  width: 10%;
+  background-color: lightblue;
+  border-width: 0;
+  size: 50%;
+  margin-right: 0%;
+  padding-right: 4%;
+  padding-left: 4%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  flex-basis: 50%;
+}
+
+.completebtn{
+  color: white;
+    border-radius: 5px;
+    height: 55%;
+    width: 10%;
+    background-color: #00db25;
+    border-width: 0;
+    size: 50%;
+    margin-right: 2%;
+    padding-right: 1%;
+    padding-left: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    flex-basis: 50%;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.task-list {
+  /* list-style: none; */
+  padding: 0;
+}
+
+
+.completed-task {
+  text-decoration: line-through;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* margin: 5% 0;
+  padding: 3%;
+  border: 0px solid #ccc;
+  border-radius: 5px;
+  width: 60vh; */
+  
+    margin-bottom: 10px;
+}
+
+/* .task-text {
+  flex: 1;
+  padding-right: 1rem;
+} */
+
+.completed {
+  color: green;
+}
+
+.button-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.completebtn {
+  padding: 0.35rem 1rem 0.5rem 0.7rem;
+  font-size: 14px;
+  /* Adjust font size as needed */
+}
+
+.completebtn.completed {
+  background-color: gray;
+  color: white;
+}
+
+.deletebtn {
+  padding: 0.35rem 1rem 0.5rem 0.7rem;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  /* Adjust font size as needed */
+}
+
+.deletebtn {
+  padding: 0.35rem 1rem 0.5rem 0.7rem;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  /* Adjust font size as needed */
+}
+
+.deletebtn:hover {
+  background-color: lightblue;
+}
+
+.listcontainer{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
