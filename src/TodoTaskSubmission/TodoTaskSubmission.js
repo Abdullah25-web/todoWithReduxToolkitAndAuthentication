@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../actions/index";
 import "./TodoTaskSubmission.css";
+import { postTodo } from "../Slice/todosSlice";
 
 function TodoTaskSubmission() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [todoTasks, setTodoTasks] = useState([]);
-  const [idCount, setIdCount] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -19,22 +17,23 @@ function TodoTaskSubmission() {
     setDescription(event.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newTask = { id: idCount, title: title, description: description };
-
-    if (newTask.title.trim() === "" && newTask.description.trim() === "") {
+    if (title.trim() === "" && description.trim() === "") {
       alert("Please fill  title and description!");
       return;
     }
 
-    setTodoTasks([...todoTasks, newTask]);
-    setIdCount(idCount + 1);
+    const newTaskData = {
+      title: title ? title : "No Title Added",
+      description: description ? description : "No Description Added",
+    };
+
+    dispatch(postTodo(newTaskData));
+
     setTitle("");
     setDescription("");
-
-    dispatch(addTodo(newTask));
   };
 
   return (

@@ -1,9 +1,9 @@
-import todoReducers from "./todoReducers";
+// import todoReducers from "./todoReducers";
 
-import { combineReducers } from "redux";
+// import { combineReducers } from "redux";
 
-const rootReducer = combineReducers({
-  todoReducers: todoReducers,
-});
+// const rootReducer = combineReducers({
+//   todoReducers: todoReducers,
+// });
 
-export default rootReducer;
+// export default rootReducer;

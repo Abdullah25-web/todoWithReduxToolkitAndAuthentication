@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, updateTodo } from "../actions/index";
+// import { , updateTodo } from "../actions/index";
 import "./TodoTaskList.css";
+import {
+  fetchTodos,
+  deleteTodo,
+  updateTodo,
+  markTaskComplete,
+} from "../Slice/todosSlice";
 
 function TodoTaskList() {
   const [editId, setEditId] = useState();
@@ -12,7 +18,11 @@ function TodoTaskList() {
   const [doneId, setDoneId] = useState([]);
   const dispatch = useDispatch();
 
-  const todoTasks = useSelector((state) => state.todoReducers.list);
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
+
+  const todoTasks = useSelector((state) => state.tasks);
 
   const handleEditTitle = (e) => {
     setEditTitle(e.target.value);
@@ -23,13 +33,27 @@ function TodoTaskList() {
   };
 
   const updateTodoFunc = (id) => {
-    const toBeUpdated = todoTasks.filter((todo) => todo.id === id);
+    const toBeUpdated = todoTasks.filter((todo) => todo._id === id);
     setEditId(id);
     console.log("update: ", toBeUpdated);
     setUpdate(true);
-    setEditTitle(toBeUpdated[0].data.title);
-    setEditDescription(toBeUpdated[0].data.description);
+    setEditTitle(toBeUpdated[0].title);
+    setEditDescription(toBeUpdated[0].description);
   };
+
+  const saveUpdate = () => {
+    if (editTitle.trim() === "" && editDescription.trim() === "") {
+      alert("Please fill  title and description!");
+      return;
+    }
+
+    dispatch(
+      updateTodo({ id: editId, title: editTitle, description: editDescription })
+    );
+
+    setUpdate(false);
+  };
+
   const deleteTodoFunc = (id) => {
     dispatch(deleteTodo(id));
   };
@@ -40,27 +64,9 @@ function TodoTaskList() {
     if (!doneId.includes(id)) setDoneId([...doneId, id]);
     else setDoneId(doneId.filter((taskId) => taskId !== id));
 
+    dispatch(markTaskComplete(id));
+
     console.log(doneId);
-  };
-
-  const saveUpdate = () => {
-    const updateTask = {
-      id: editId,
-      title: editTitle,
-      description: editDescription,
-    };
-
-    if (
-      updateTask.title.trim() === "" &&
-      updateTask.description.trim() === ""
-    ) {
-      alert("Please fill  title and description!");
-      return;
-    }
-
-    dispatch(updateTodo(updateTask));
-
-    setUpdate(false);
   };
 
   return (
@@ -69,17 +75,17 @@ function TodoTaskList() {
       <div className="listsParent">
         <ul>
           {todoTasks?.map((todo) => (
-            <div key={todo.id} className="listDiv">
+            <div key={todo._id} className="listDiv">
               <div
                 className="listOnly"
                 style={{
                   textDecoration:
-                    taskDone && doneId.includes(todo.id)
+                    taskDone && doneId.includes(todo._id)
                       ? "line-through"
                       : "none",
                 }}
               >
-                {update && editId === todo.id ? (
+                {update && editId === todo._id ? (
                   <>
                     {" "}
                     <input
@@ -100,17 +106,13 @@ function TodoTaskList() {
                 ) : (
                   <>
                     <li className="title">
-                      {!todo.data.title ? (
-                        <i>No Title Added</i>
-                      ) : (
-                        todo.data.title
-                      )}
+                      {!todo.title ? <i>No Title Added</i> : todo.title}
                     </li>
                     <li className="description" placeholder="Task Description">
-                      {!todo.data.description ? (
+                      {!todo.description ? (
                         <i>No Description Added</i>
                       ) : (
-                        todo.data.description
+                        todo.description
                       )}{" "}
                     </li>
                   </>
@@ -120,11 +122,11 @@ function TodoTaskList() {
                 <button
                   type="submit"
                   className="delete btn"
-                  onClick={() => deleteTodoFunc(todo.id)}
+                  onClick={() => deleteTodoFunc(todo._id)}
                 >
                   Delete
                 </button>
-                {update && editId === todo.id ? (
+                {update && editId === todo._id ? (
                   <button
                     type="submit"
                     className="save btn"
@@ -141,9 +143,9 @@ function TodoTaskList() {
                     className="edit btn"
                     style={{
                       display:
-                        taskDone && doneId === todo.id ? "none" : "block",
+                        taskDone && doneId === todo._id ? "none" : "block",
                     }}
-                    onClick={() => updateTodoFunc(todo.id)}
+                    onClick={() => updateTodoFunc(todo._id)}
                   >
                     Edit
                   </button>
@@ -151,9 +153,9 @@ function TodoTaskList() {
                 <button
                   type="submit"
                   className="done btn"
-                  onClick={() => handleTaskDone(todo.id)}
+                  onClick={() => handleTaskDone(todo._id)}
                 >
-                  {doneId.includes(todo.id) ? <> Undone</> : <> Done </>}{" "}
+                  {doneId.includes(todo._id) ? <> Undone</> : <> Done </>}{" "}
                 </button>
               </div>
             </div>
