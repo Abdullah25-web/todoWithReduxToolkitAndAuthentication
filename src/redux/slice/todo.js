@@ -51,7 +51,6 @@ export const updateTask = createAsyncThunk(
       }
 
       const headers = {
-        // token: token,
         "Content-Type": "application/json",
       };
 
