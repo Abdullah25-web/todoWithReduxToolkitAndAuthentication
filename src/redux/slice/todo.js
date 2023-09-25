@@ -6,13 +6,6 @@ import axiosInstance from "../../axiosInstance";
 
 const token = Cookies.get("token");
 
-const handleUnauthorizedResponse = (response) => {
-  if (response.status === 401) {
-    throw new Error("Unauthorized");
-  }
-  return response;
-};
-
 // showing all tasks when site is opened
 export const fetchTodos = createAsyncThunk("fetchTodos", async () => {
   try {
@@ -39,6 +32,7 @@ export const postTodo = createAsyncThunk("postTodo", async (task) => {
         "Content-Type": "application/json",
       },
     });
+    console.log(response);
     return response.data;
   } catch (error) {
     throw error;
@@ -48,22 +42,25 @@ export const postTodo = createAsyncThunk("postTodo", async (task) => {
 // updating particular task based on its id
 export const updateTask = createAsyncThunk(
   "updateTask",
-  async ({ id, name }) => {
+  async ({ id, name, description }) => {
+    console.log("name:", name);
+    console.log("description:", description);
     try {
       if (!token) {
         throw new Error("Token not found in cookies.");
       }
 
       const headers = {
-        token: token,
+        // token: token,
         "Content-Type": "application/json",
       };
 
       const response = await axios.patch(
         `${BASE_URL}/todos/${id}`,
-        { name },
+        { name, description },
         { headers }
       );
+      console.log("response : ", response.data);
       return { id, updatedTask: response.data };
     } catch (error) {
       throw error;
@@ -115,15 +112,6 @@ export const markTaskComplete = createAsyncThunk(
         "Content-Type": "application/json",
       });
 
-      // const response = await axios.patch(
-      //   `${BASE_URL}/todos/status/${id}`,
-      //   {},
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
       console.log(response);
 
       return { id, updatedTask: response.data };
@@ -144,7 +132,8 @@ const todoSlice = createSlice({
   reducers: {
     addTask: (state, action) => {
       state.tasks.push({
-        name: action.payload,
+        name: action.payload.name,
+        description: action.payload.description,
         completed: false,
       });
     },

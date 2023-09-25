@@ -16,84 +16,51 @@ const Signup = () => {
   };
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
     dispatch(signUpUser({ email, password }));
+    navigate("/login");
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
-      <h2>Signup</h2>
-      <br />
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <br />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            required
-            style={{
-              height: 40,
-              width: 250,
-              borderRadius: 10,
-              borderWidth: 0,
-              paddingLeft: 10,
-              marginBottom: 20,
-            }}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <br />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-            style={{
-              height: 40,
-              width: 250,
-              borderRadius: 10,
-              borderWidth: 0,
-              paddingLeft: 10,
-              marginBottom: 20,
-            }}
-          />
-        </div>
-        <button
-          type="submit"
-          style={{
-            height: 30,
-            width: 55,
-            backgroundColor: "blue",
-            borderWidth: 0,
-            borderRadius: 5,
-            // marginTop: 5,
-            color: "white",
-          }}
-        >
-          Signup
-        </button>
-      </form>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Signup</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+          </div>
+          <button type="submit" className="authBtn">
+            Register{" "}
+          </button>
+        </form>
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </div>
   );
 };

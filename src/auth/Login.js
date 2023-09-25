@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logInUser, addToken, logout } from "../redux/slice/authSlice";
 import { useNavigate, Link } from "react-router-dom";
-
+import "./authCss.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,12 +11,12 @@ const Login = () => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    setError(""); // Clear error when user starts typing again
+    setError("");
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    setError(""); // Clear error when user starts typing again
+    setError("");
   };
 
   const dispatch = useDispatch();
@@ -24,8 +24,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Set loading state while waiting for response
-
+    setIsLoading(true);
     const result = await dispatch(logInUser({ email, password }));
 
     if (!result.payload.error) {
@@ -35,80 +34,45 @@ const Login = () => {
       setError(result.payload.error);
     }
 
-    setIsLoading(false); // Clear loading state
+    setIsLoading(false);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <br />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            required
-            style={{
-              height: 40,
-              width: 250,
-              borderRadius: 10,
-              borderWidth: 0,
-              paddingLeft: 10,
-              marginBottom: 20,
-            }}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <br />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-            style={{
-              height: 40,
-              width: 250,
-              borderRadius: 10,
-              borderWidth: 0,
-              paddingLeft: 10,
-              marginBottom: 10,
-            }}
-          />
-        </div>
-        {error && <p className="error">{error}</p>}
-        <button
-          type="submit"
-          style={{
-            height: 30,
-            width: 50,
-            backgroundColor: "blue",
-            borderWidth: 0,
-            borderRadius: 5,
-            marginTop: 10,
-            color: "white",
-          }}
-          disabled={isLoading} // Disable the button during loading
-        >
-          {isLoading ? "Logging in..." : "Login"}
-        </button>
-      </form>
-      <p>
-        Don't have an account? <Link to="/signup">Sign up</Link>
-      </p>
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+          </div>
+          {error && <p className="error">{error}</p>}
+          <button type="submit" className="authBtn" disabled={isLoading}>
+            {isLoading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+        <p>
+          Don't have an account? <Link to="/signup">Sign up</Link>
+        </p>
+      </div>
     </div>
   );
 };

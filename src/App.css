@@ -14,11 +14,11 @@
   white-space: normal;
 }
 
-.input{
+.input {
   width: 25%;
-  border-radius:20px;
+  border-radius: 20px;
   height: 40px;
-  background: #F3F8FF;
+  background: #f3f8ff;
   padding-left: 2%;
   margin: 2%;
   margin-left: 2%;
@@ -28,34 +28,33 @@
 /* Add a CSS class for the button */
 .rounded-button {
   border-radius: 10px;
-  background-color: #4169E1;
+  background-color: #4169e1;
   color: white;
   padding: 10px 20px;
   border-width: 0;
   /* Add any additional styles as needed */
 }
 
-.list{
+.list {
   align-items: center;
   justify-content: center;
   display: flex;
-  
 }
 
-.items{
+.items {
   margin-right: 3%;
 }
 
-.add{
+.add {
   font-size: large;
 }
 
-.addbtn{
+.addbtn {
   color: white;
   border-radius: 5%;
   height: 50%;
   width: 4%;
-  background-color: #007FFF;
+  background-color: #007fff;
   border-width: 0;
   size: 50%;
   padding-right: 3%;
@@ -64,25 +63,25 @@
   padding-bottom: 1%;
 }
 
-.deletebtn{
+.deletebtn {
   color: white;
-    border-radius: 5px;
-    height: 55%;
-    width: 10%;
-    background-color: #ff0022;
-    border-width: 0;
-    size: 50%;
-    margin-right: 2%;
-    padding-right: 1%;
-    padding-left: 1%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    flex-basis: 50%;
+  border-radius: 5px;
+  height: 55%;
+  width: 10%;
+  background-color: #ff0022;
+  border-width: 0;
+  size: 50%;
+  margin-right: 2%;
+  padding-right: 1%;
+  padding-left: 1%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  flex-basis: 50%;
 }
 
-.savebtn{
-  height: 10%;
-  width: 10%;
+.savebtn {
+  padding: 6px 8px;
+  width: 23%;
   background-color: #00db25;
   border-radius: 5px;
   color: white;
@@ -90,8 +89,9 @@
 }
 
 .cancelbtn {
-  height: 10%;
-  width: 10%;
+  padding: 6px 8px;
+
+  width: 23%;
   background-color: red;
   border-radius: 5px;
   color: white;
@@ -99,7 +99,7 @@
   margin: 10px;
 }
 
-.modalcontainer{
+.modalcontainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,20 +122,20 @@
   flex-basis: 50%;
 }
 
-.completebtn{
+.completebtn {
   color: white;
-    border-radius: 5px;
-    height: 55%;
-    width: 10%;
-    background-color: #00db25;
-    border-width: 0;
-    size: 50%;
-    margin-right: 2%;
-    padding-right: 1%;
-    padding-left: 1%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    flex-basis: 50%;
+  border-radius: 5px;
+  height: 55%;
+  width: 10%;
+  background-color: #00db25;
+  border-width: 0;
+  size: 50%;
+  margin-right: 2%;
+  padding-right: 1%;
+  padding-left: 1%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  flex-basis: 50%;
 }
 
 .center-container {
@@ -145,10 +145,8 @@
 }
 
 .task-list {
-  /* list-style: none; */
   padding: 0;
 }
-
 
 .completed-task {
   text-decoration: line-through;
@@ -158,22 +156,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* margin: 5% 0;
-  padding: 3%;
-  border: 0px solid #ccc;
-  border-radius: 5px;
-  width: 60vh; */
-  
-    margin-bottom: 10px;
-}
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 19px 49px;
 
-/* .task-text {
-  flex: 1;
-  padding-right: 1rem;
-} */
+  margin-bottom: 10px;
+}
 
 .completed {
   color: green;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.btn:hover {
+  scale: 1.05;
 }
 
 .button-container {
@@ -184,7 +183,6 @@
 .completebtn {
   padding: 0.35rem 1rem 0.5rem 0.7rem;
   font-size: 14px;
-  /* Adjust font size as needed */
 }
 
 .completebtn.completed {
@@ -196,7 +194,6 @@
   padding: 0.35rem 1rem 0.5rem 0.7rem;
   font-size: 14px;
   transition: background-color 0.3s ease;
-  /* Adjust font size as needed */
 }
 
 .deletebtn {
@@ -210,11 +207,10 @@
   background-color: lightblue;
 }
 
-.listcontainer{
+.listcontainer {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-  
 }
 
 .App-logo {

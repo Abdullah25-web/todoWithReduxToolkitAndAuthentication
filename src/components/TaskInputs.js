@@ -1,93 +1,66 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postTodo } from "../redux/slice/todo"; // Import your action here
+import { postTodo } from "../redux/slice/todo";
 import Button from "react-bootstrap/Button";
-import { FaPlus } from "react-icons/fa";
-
+import "./componentCss.css";
 const TaskInputs = () => {
   const dispatch = useDispatch();
   const [task, setTask] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleTitle = (event) => {
     setTask(event.target.value);
   };
+  const handleDescription = (event) => {
+    setDescription(event.target.value);
+  };
 
-  const handleAddTask = () => {
+  const handleAddTask = async (e) => {
+    e.preventDefault();
     const taskData = {
       name: task,
+      description: description,
       completed: false,
     };
-    // if (task.trim() !== "") {
+
+    if (task.trim() === "" || description.trim() === "") {
+      alert("Please fill  title and description!");
+      return;
+    }
+
     dispatch(postTodo(taskData));
-    setTask(""); // Clear the input field after adding the task
-    // }
+    setTask("");
+    setDescription("");
+    console.log(taskData);
   };
 
   return (
     <div className="main">
-      <input
-        type="text"
-        placeholder="Enter a task"
-        value={task}
-        onChange={handleInputChange}
-        className="input"
-        style={{ backgroundColor: "lightblue" }}
-      />
-      <Button
-        onClick={handleAddTask}
-        variant="success"
-        style={{
-          backgroundColor: "	#4169E1",
-          color: "white",
-          borderWidth: 0,
-          borderRadius: 5,
-          height: 35,
-          width: 50,
-        }}
-      >
-        ADD
-      </Button>
+      <div className="center-container">
+        <form className="task-form" onSubmit={handleAddTask}>
+          <input
+            type="text"
+            placeholder="Enter a task"
+            value={task}
+            onChange={handleTitle}
+            className="input"
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="Enter a description"
+            value={description}
+            onChange={handleDescription}
+            className="input"
+          />
+          <br />
+          <Button type="submit" className="btnTaskInput" variant="success">
+            ADD
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default TaskInputs;
-
-// import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { addTask } from "../action";
-// import Button from "react-bootstrap/Button";
-// import { FaPlus } from "react-icons/fa";
-
-// const TaskInputs = () => {
-//   const dispatch = useDispatch();
-//   const [task, setTask] = useState("");
-
-//   const handleInputChange = (event) => {
-//     setTask(event.target.value);
-//   };
-
-//   const handleAddTask = () => {
-//     if (task.trim() !== "") {
-//       dispatch(addTask(task));
-//       setTask("");
-//     }
-//   };
-
-//   return (
-//     <div className="main">
-//       <input
-//         type="text"
-//         placeholder="Enter a task"
-//         value={task}
-//         onChange={handleInputChange}
-//         className="input"
-//       />
-//       <Button onClick={handleAddTask} className="addbtn" variant="success">
-//         <FaPlus className="add" />
-//       </Button>
-//     </div>
-//   );
-// };
-
-// export default TaskInputs;

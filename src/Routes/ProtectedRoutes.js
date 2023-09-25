@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Route, useNavigate } from "react-router-dom";
 
 const ProtectedRoutes = ({ auth, component: Component, ...rest }) => {
-  const navigate = useNavigate();
   return (
     <Route
       {...rest}

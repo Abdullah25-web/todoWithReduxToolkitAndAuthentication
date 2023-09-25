@@ -85,11 +85,11 @@ const authSlice = createSlice({
     },
     [logInUser.fulfilled]: (state, action) => {
       console.log(action.payload);
-      const { error, msg, token, user } = action.payload; // Destructure the payload
+      const { error, msg, token, user } = action.payload;
 
       state.loading = false; // Set loading to false
       if (error) {
-        state.error = error; // Set the error message if there is one
+        state.error = error;
       } else {
         // console.log(token);
         state.msg = msg;
@@ -109,7 +109,8 @@ const authSlice = createSlice({
       state.loading = true;
     },
     [signUpUser.fulfilled]: (state, action) => {
-      const { error, msg } = action.payload;
+      const { error, msg, token } = action.payload;
+      localStorage.setItem("token", token);
 
       state.loading = false; // Set loading to false
       if (error) {

@@ -14,11 +14,10 @@ const TaskList = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editedText, setEditedText] = useState("");
+  const [editedDescription, setEditedDescription] = useState("");
   const [editedTaskId, setEditedTaskId] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
-  // const [filterOption, setFilterOption] = useState("all");
 
-  // Use useEffect to fetch tasks when tasks are deleted etc
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch]);
@@ -28,6 +27,7 @@ const TaskList = () => {
 
     if (task) {
       setEditedText(task.name);
+      setEditedDescription(task.description);
       setEditedTaskId(_id);
       setModalIsOpen(true);
     }
@@ -44,6 +44,7 @@ const TaskList = () => {
       const taskData = {
         id: editedTaskId,
         name: editedText,
+        description: editedDescription,
       };
 
       try {
@@ -70,7 +71,6 @@ const TaskList = () => {
     if (taskToComplete) {
       const markDone = {
         id: taskToComplete._id,
-        // name: taskToComplete.name
       };
       dispatch(markTaskComplete(markDone));
     }
@@ -105,43 +105,6 @@ const TaskList = () => {
     }
   });
 
-  // const filterTasks = tasks.filter((task) => {
-  //   if (filterOption === "all") {
-  //     return true;
-  //   } else if (filterOption === "completed") {
-  //     return task.completed;
-  //   } else {
-  //     return !task.completed;
-  //   }
-  // });
-
-  // const toggleFilterOption = () => {
-  //   if (filterOption === "all") {
-  //     setFilterOption("completed");
-  //   } else if (filterOption === "completed") {
-  //     setFilterOption("incomplete");
-  //   } else {
-  //     setFilterOption("all");
-  //   }
-  // };
-
-  // const handleTaskComplete = (_id) => {
-  //   const taskToComplete = tasks.find((task) => task._id === _id);
-
-  //   console.warn("task to Comp: ", taskToComplete);
-
-  //   if (taskToComplete) {
-  //     const updatedTask = {
-  //       name: taskToComplete.name,
-  //       completed: true, // Toggle the completed status
-  //     };
-  //     console.warn("task to Comp Affter: ", taskToComplete);
-
-  //     // Dispatch the updated task to mark it as complete or incomplete
-  //     dispatch(markTaskComplete({ id: _id, ...updatedTask }));
-  //   }
-  // };
-
   return (
     <>
       <div
@@ -152,7 +115,7 @@ const TaskList = () => {
           flexDirection: "row",
         }}
       >
-        <button onClick={toggleSortOrder} className="rounded-button">
+        <button onClick={toggleSortOrder} className="rounded-button btn">
           {sortOrder === "asc"
             ? "show Incomplete"
             : sortOrder === "desc"
@@ -166,17 +129,18 @@ const TaskList = () => {
             sortedTasks.map((task) => (
               <li key={task._id} className="task-item">
                 <span
-                  // className={task.completed ? "completed-task" : ""}
                   className={`task-name ${
                     task.completed ? "completed-task" : ""
                   }`}
                   style={{ marginRight: 50 }}
                 >
-                  {task.completed ? task.name : task.name}
+                  <b> {task.name} </b>
+                  <br />
+                  {task.description}
                 </span>
                 <div className="button-container">
                   <button
-                    // className="editbtn"
+                    className="editbtn btn"
                     style={{
                       color: "white",
                       backgroundColor: "#4169E1",
@@ -190,7 +154,7 @@ const TaskList = () => {
                     Edit
                   </button>
                   <button
-                    // className="deletebtn"
+                    className="deletebtn btn"
                     style={{
                       backgroundColor: "red",
                       color: "white",
@@ -204,7 +168,7 @@ const TaskList = () => {
                     Delete
                   </button>
                   <button
-                    // className="completebtn"
+                    className="completebtn btn"
                     onClick={() => handleTaskComplete(task._id)}
                     style={{
                       backgroundColor: task.completed ? "gray" : "green",
@@ -226,12 +190,26 @@ const TaskList = () => {
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           contentLabel="Edit Task"
+          style={{
+            overlay: {
+              backgroundColor: "rgba(0, 0, 0, 0.6)",
+            },
+            content: {
+              width: "398px",
+              height: "400px",
+              margin: "auto",
+              padding: "20px",
+              borderRadius: "5px",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)",
+              backgroundColor: "#fff",
+            },
+          }}
         >
           <div className="modalcontainer">
             <div>
               <h2>Edit Task</h2>
             </div>
-            <div>
+            <div style={{ margin: "43px 0" }}>
               <input
                 type="text"
                 value={editedText}
@@ -239,12 +217,19 @@ const TaskList = () => {
                 className="input"
                 style={{ width: "90%" }}
               />
+              <input
+                type="text"
+                value={editedDescription}
+                onChange={(e) => setEditedDescription(e.target.value)}
+                className="input"
+                style={{ width: "90%" }}
+              />
             </div>
             <br />
-            <button className="savebtn" onClick={handleEditSave}>
+            <button className="savebtn btn" onClick={handleEditSave}>
               Save
             </button>
-            <button className="cancelbtn" onClick={closeModal}>
+            <button className="cancelbtn btn" onClick={closeModal}>
               Cancel
             </button>
           </div>

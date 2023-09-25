@@ -16,6 +16,7 @@ export const fetchTodos = createAsyncThunk("fetchTodos", async () => {
 export const postTodo = createAsyncThunk("tasks/postTodo", async (task) => {
   try {
     const response = await axios.post(BASE_URL + "/api/tasks", task);
+    console.log(response);
     return response.data;
   } catch (error) {
     throw error;
