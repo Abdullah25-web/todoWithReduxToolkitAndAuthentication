@@ -2,7 +2,6 @@ import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../common/constanst";
 import Cookies from "js-cookie";
-import axiosInstance from "../../axiosInstance";
 
 const token = Cookies.get("token");
 
@@ -12,9 +11,17 @@ export const fetchTodos = createAsyncThunk("fetchTodos", async () => {
     if (!token) {
       throw new Error("Token not found in cookies.");
     }
-    const response = await axiosInstance.get(`${BASE_URL}/todos`, {
-      withCredentials: true,
+    console.log("token in fetch: ", token);
+
+    let config = {
+      token: token,
+    };
+    const response = await axios({
+      url: `${BASE_URL}/todos`,
+      method: "Get",
+      headers: config,
     });
+
     return response.data;
   } catch (error) {
     throw error.message;
@@ -27,12 +34,20 @@ export const postTodo = createAsyncThunk("postTodo", async (task) => {
     if (!token) {
       throw new Error("Token not found in cookies.");
     }
-    const response = await axios.post(`${BASE_URL}/todos`, task, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    console.log("token in postTodo: ", token);
+
+    const headers = {
+      "Content-Type": "application/json",
+      token: token,
+    };
+
+    const response = await axios({
+      url: `${BASE_URL}/todos`,
+      data: task,
+      method: "POST",
+      headers: headers,
     });
-    console.log(response);
+
     return response.data;
   } catch (error) {
     throw error;
@@ -52,9 +67,10 @@ export const updateTask = createAsyncThunk(
 
       const headers = {
         "Content-Type": "application/json",
+        token: token,
       };
 
-      const response = await axios.patch(
+      const response = await axios.put(
         `${BASE_URL}/todos/${id}`,
         { name, description },
         { headers }
@@ -70,12 +86,10 @@ export const updateTask = createAsyncThunk(
 //deleting a task based on its id
 export const deleteTodo = createAsyncThunk("deleteTodo", async (id) => {
   try {
-    // const token = localStorage.getItem("token");
-
     if (!token) {
       throw new Error("Token not found in cookies.");
     }
-    console.log({ tokenFinal: token, id });
+    console.log("token in delete: ", token);
     let config = {
       token: token,
     };
@@ -106,7 +120,7 @@ export const markTaskComplete = createAsyncThunk(
 
       const response = await axios({
         url: `${BASE_URL}/todos/status/${id}`,
-        method: "PATCH",
+        method: "PUT",
         headers: config,
         "Content-Type": "application/json",
       });

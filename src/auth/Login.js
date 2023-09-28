@@ -26,12 +26,13 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     const result = await dispatch(logInUser({ email, password }));
-
+    console.log("result", result);
     if (!result.payload.error) {
       dispatch(addToken(result.payload.token));
       navigate("/todos");
     } else {
       setError(result.payload.error);
+      setIsLoading(false);
     }
 
     setIsLoading(false);

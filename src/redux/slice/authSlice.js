@@ -1,7 +1,6 @@
 // authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../common/constanst";
-import axios from "axios";
 import axiosInstance from "../../axiosInstance";
 import Cookies from "js-cookie";
 

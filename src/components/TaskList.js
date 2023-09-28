@@ -7,6 +7,8 @@ import {
   markTaskComplete,
 } from "../redux/slice/todo";
 import Modal from "react-modal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TaskList = () => {
   const tasks = useSelector((state) => state.tasks.tasks) || [];
@@ -52,8 +54,16 @@ const TaskList = () => {
 
         await dispatch(fetchTodos()); //fetching all tasks after updating
         closeModal();
+        toast.success("Task Editted", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+        });
       } catch (error) {
         console.error("Error updating task:", error);
+        toast.error(error, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+        });
       }
     }
   };
@@ -63,6 +73,10 @@ const TaskList = () => {
   const handleTaskDelete = (_id) => {
     console.log({ tokenFromDispatch: token });
     dispatch(deleteTodo(_id));
+    toast.success("Task Deleted", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+    });
   };
 
   const handleTaskComplete = (_id) => {
@@ -235,6 +249,7 @@ const TaskList = () => {
           </div>
         </Modal>
       </div>
+      <ToastContainer />
     </>
   );
 };
